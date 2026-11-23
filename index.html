@@ -17,7 +17,22 @@ body{font-family:Georgia,serif;background:#170b16;color:white;text-align:center;
 h1{color:#ffd5e5;font-size:clamp(32px,7vw,55px);margin:15px;text-shadow:0 0 20px #ff70ad}
 h2{color:#ffc5df;font-size:clamp(25px,5vw,36px);margin:15px}
 p{font-size:19px;line-height:1.8;max-width:650px;margin:12px auto}
-img{max-width:85%;max-height:48vh;object-fit:contain;border-radius:18px;margin:20px;box-shadow:0 0 30px #ff91bd55}
+
+img{
+max-width:85%;
+max-height:48vh;
+object-fit:contain;
+border-radius:18px;
+margin:20px;
+box-shadow:0 0 30px #ff91bd55;
+animation:photoRotate 5s ease-in-out infinite;
+}
+
+@keyframes photoRotate{
+0%,100%{transform:rotate(-3deg) scale(1)}
+50%{transform:rotate(3deg) scale(1.04)}
+}
+
 button{background:linear-gradient(135deg,#ff75ad,#c83279);color:white;border:1px solid #ffc3dc;border-radius:35px;padding:15px 30px;margin:15px;font-size:17px;font-family:Georgia,serif;cursor:pointer;box-shadow:0 5px 25px #ff4f9955;transition:.3s}
 button:hover{transform:scale(1.07)}
 .small{color:#ffcee2;font-style:italic}
@@ -34,10 +49,32 @@ button:hover{transform:scale(1.07)}
 #letter p{font-size:16px;line-height:1.9}
 #letter .signature{text-align:right;font-weight:bold;color:#c02c70}
 #personalityImage{transition:opacity .5s,transform .5s}
-.heart{font-size:110px;color:#ff477f;cursor:pointer;animation:heartbeat 1s infinite;filter:drop-shadow(0 0 20px #ff477f)}
-@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+
+.heart{
+font-size:170px;
+color:#ff477f;
+cursor:pointer;
+animation:heartbeat .85s infinite;
+filter:drop-shadow(0 0 30px #ff477f);
+text-shadow:0 0 35px #ff477f;
+}
+
+@keyframes heartbeat{
+0%,100%{transform:scale(1)}
+10%{transform:scale(1.25)}
+20%{transform:scale(1)}
+30%{transform:scale(1.3)}
+45%{transform:scale(1)}
+60%{transform:scale(1.12)}
+}
+
 #finalMessage{display:none}
-@media(max-width:600px){p{font-size:17px}img{max-width:95%}#letter{padding:18px}}
+@media(max-width:600px){
+p{font-size:17px}
+img{max-width:95%}
+#letter{padding:18px}
+.heart{font-size:160px}
+}
 </style>
 </head>
 
@@ -45,7 +82,8 @@ button:hover{transform:scale(1.07)}
 <div id="background"></div>
 <div id="sparkles"></div>
 <div id="tulipRain"></div>
-<audio id="music" loop></audio>
+
+<audio id="music" src="Alfaaz.m4a" loop preload="auto"></audio>
 
 <section class="screen active" id="welcome">
 <h1>Happy Birthday HINO! 🎂</h1>
@@ -107,14 +145,18 @@ button:hover{transform:scale(1.07)}
 
 <div id="letter">
 <h2>Happiest birthday HINO ❤️</h2>
+
 <p>
 Happy birthdayy to my bestiee hinodiiii..i love you so much..i hope your days get filled with laughter and joy...may god bless you with all the success and prosperity in your life..i hope that your cute smile always stays on your beautiful face
 </p>
+
 <p>
 It has been more than 5 months since i have known you..you are a really good freind the best gf the best daughter and the best sister...never get discouraged by people who say bad about you..hino is the best girl i have ever seen...the pranks that we used to do in live will always have a special space in my heart...life seems more beautiful with a kind girl like you...who thinks of others rather than thinking about herself..i hope you get very good friends in your life who know the value of my hino..who will cherish her and make her happy...i Can't talk to you but i miss you so much...you always make me smile through my heart whenever i talk to you..a smile appears without any reason...that's hinos power of making everyone smile though she is growing through much inside...i hope your health remains good...physically and meantally...and whenever you need help i am there...don't ever feel that you are alone...whenever you want to talk abt smth i am there...i am there to support you for rest of your life...may our friendship remains the same for years..love you hino🤧💋❤️
 </p>
+
 <p class="signature">~ Tari eishudi❤️</p>
 </div>
+
 <button id="letterNext" style="display:none" onclick="showScreen('personality')">ONE LAST SURPRISE 🌷</button>
 </section>
 
@@ -130,6 +172,7 @@ It has been more than 5 months since i have known you..you are a really good fre
 <h1>One last thing... ❤️</h1>
 <p>Tap the heart to receive your biggest hug!</p>
 <div class="heart" onclick="finalSurprise()">♥</div>
+
 <div id="finalMessage">
 <img src="Hug.png" alt="A big hug">
 <h1>HAPPY BIRTHDAY MY BESTIE!! 🎂</h1>
@@ -142,13 +185,9 @@ It has been more than 5 months since i have known you..you are a really good fre
 <script>
 const music=document.getElementById("music");
 
-function playMusic(file){
-const newSource=encodeURI(file);
-if(music.getAttribute("src")!==newSource){
-music.src=newSource;
+function playMusic(){
 music.volume=.65;
 music.play().catch(()=>{});
-}
 }
 
 function showScreen(id){
@@ -158,7 +197,7 @@ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function begin(){
-playMusic("Dilruba silnasheen.m4a");
+playMusic();
 showScreen("tulips");
 startTulipRain();
 }
@@ -198,8 +237,10 @@ displayGift();
 function displayGift(){
 const gift=gifts[giftIndex];
 const image=document.getElementById("giftImage");
+
 image.style.opacity=0;
 image.style.transform="scale(.8)";
+
 setTimeout(()=>{
 document.getElementById("giftName").textContent=gift.name;
 image.src=gift.image;
@@ -207,6 +248,7 @@ document.getElementById("giftText").textContent=gift.text;
 image.style.opacity=1;
 image.style.transform="scale(1)";
 },300);
+
 document.getElementById("giftNext").textContent=
 giftIndex===gifts.length-1?"READ MY LETTER 💌":"NEXT GIFT 🎀";
 }
@@ -217,7 +259,6 @@ giftIndex++;
 displayGift();
 }else{
 showScreen("letterScreen");
-playMusic("blue yung kai.mp3");
 }
 }
 
@@ -244,15 +285,19 @@ let personalityIndex=0;
 function displayPersonality(){
 const item=compliments[personalityIndex];
 const image=document.getElementById("personalityImage");
+
 image.style.opacity=0;
 image.style.transform="rotate(-5deg) scale(.85)";
+
 document.getElementById("personalityText").textContent=item.text;
 document.getElementById("personalityCount").textContent=(personalityIndex+1)+" / "+compliments.length;
+
 setTimeout(()=>{
 image.src=item.image;
 image.style.opacity=1;
 image.style.transform="rotate(0) scale(1)";
 },350);
+
 document.getElementById("personalityNext").textContent=
 personalityIndex===compliments.length-1?"ONE LAST THING ❤️":"NEXT ✨";
 }
@@ -263,7 +308,6 @@ personalityIndex++;
 displayPersonality();
 }else{
 showScreen("ending");
-playMusic("Alfaaz.m4a");
 }
 }
 
@@ -290,4 +334,3 @@ displayPersonality();
 </script>
 </body>
 </html>
-
