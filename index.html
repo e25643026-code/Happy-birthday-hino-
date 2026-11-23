@@ -8,15 +8,68 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Georgia,serif;background:#170b16;color:white;text-align:center;overflow-x:hidden}
-#background{position:fixed;inset:0;background:linear-gradient(#140512c9,#140512e0),url("Besties.png") center/cover;z-index:-2}
-#sparkles{position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(#ffffff66 1px,transparent 1px);background-size:35px 35px;opacity:.4}
-.screen{display:none;min-height:100vh;padding:35px 18px;flex-direction:column;align-items:center;justify-content:center;animation:appear .9s ease}
+
+body{
+font-family:Georgia,serif;
+background:#170b16;
+color:white;
+text-align:center;
+overflow-x:hidden
+}
+
+#background{
+position:fixed;
+inset:0;
+background:linear-gradient(#140512c9,#140512e0),url("Besties.png") center/cover;
+z-index:-2
+}
+
+#sparkles{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-1;
+background-image:radial-gradient(#ffffff66 1px,transparent 1px);
+background-size:35px 35px;
+opacity:.4
+}
+
+.screen{
+display:none;
+min-height:100vh;
+padding:35px 18px;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+animation:appear .9s ease
+}
+
 .screen.active{display:flex}
-@keyframes appear{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-h1{color:#ffd5e5;font-size:clamp(32px,7vw,55px);margin:15px;text-shadow:0 0 20px #ff70ad}
-h2{color:#ffc5df;font-size:clamp(25px,5vw,36px);margin:15px}
-p{font-size:19px;line-height:1.8;max-width:650px;margin:12px auto}
+
+@keyframes appear{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+color:#ffd5e5;
+font-size:clamp(32px,7vw,55px);
+margin:15px;
+text-shadow:0 0 20px #ff70ad
+}
+
+h2{
+color:#ffc5df;
+font-size:clamp(25px,5vw,36px);
+margin:15px
+}
+
+p{
+font-size:19px;
+line-height:1.8;
+max-width:650px;
+margin:12px auto
+}
 
 img{
 max-width:85%;
@@ -25,7 +78,7 @@ object-fit:contain;
 border-radius:18px;
 margin:20px;
 box-shadow:0 0 30px #ff91bd55;
-animation:photoRotate 5s ease-in-out infinite;
+animation:photoRotate 5s ease-in-out infinite
 }
 
 @keyframes photoRotate{
@@ -33,52 +86,239 @@ animation:photoRotate 5s ease-in-out infinite;
 50%{transform:rotate(3deg) scale(1.04)}
 }
 
-button{background:linear-gradient(135deg,#ff75ad,#c83279);color:white;border:1px solid #ffc3dc;border-radius:35px;padding:15px 30px;margin:15px;font-size:17px;font-family:Georgia,serif;cursor:pointer;box-shadow:0 5px 25px #ff4f9955;transition:.3s}
+button{
+background:linear-gradient(135deg,#ff75ad,#c83279);
+color:white;
+border:1px solid #ffc3dc;
+border-radius:35px;
+padding:15px 30px;
+margin:15px;
+font-size:17px;
+font-family:Georgia,serif;
+cursor:pointer;
+box-shadow:0 5px 25px #ff4f9955;
+transition:.3s
+}
+
 button:hover{transform:scale(1.07)}
+
 .small{color:#ffcee2;font-style:italic}
-#tulipRain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
-.falling{position:absolute;top:-50px;animation:fall linear forwards;font-size:27px}
-@keyframes fall{to{transform:translateY(110vh) rotate(500deg);opacity:0}}
-.giftbox{font-size:110px;cursor:pointer;animation:bounce 1.5s infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.envelope{width:220px;height:145px;background:#e99ab9;border-radius:8px;position:relative;margin:30px;cursor:pointer;box-shadow:0 0 30px #ff9ec9}
-.envelope:before{content:"";position:absolute;top:0;left:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:85px solid #ffd0e0}
-.envelope:after{content:"❤️";position:absolute;top:65px;left:95px;font-size:30px}
-#letter{display:none;background:#fff0e7;color:#77354e;padding:25px;border-radius:15px;max-width:680px;width:95%;text-align:left;line-height:1.9;font-size:17px;max-height:65vh;overflow-y:auto;box-shadow:0 0 35px #ff8bb6}
-#letter h2{color:#b62e67;text-align:center}
-#letter p{font-size:16px;line-height:1.9}
-#letter .signature{text-align:right;font-weight:bold;color:#c02c70}
+
+#tulipRain{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+z-index:5
+}
+
+.falling{
+position:absolute;
+top:-50px;
+animation:fall linear forwards;
+font-size:27px
+}
+
+@keyframes fall{
+to{transform:translateY(110vh) rotate(500deg);opacity:0}
+}
+
+.giftbox{
+font-size:110px;
+cursor:pointer;
+animation:bounce 1.5s infinite;
+transition:.5s
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+}
+
+/* GIFT ORBIT */
+
+.gift-stage{
+width:min(90vw,420px);
+height:390px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:10px auto
+}
+
+.orbit-ring{
+width:320px;
+height:320px;
+position:absolute;
+border:1px dashed #ffacd0;
+border-radius:50%;
+animation:orbitSpin 14s linear infinite;
+display:none
+}
+
+@keyframes orbitSpin{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
+}
+
+.orbit-gift{
+position:absolute;
+width:85px;
+height:85px;
+left:50%;
+top:50%;
+margin:-42px;
+display:flex;
+align-items:center;
+justify-content:center;
+animation:giftAppear .8s ease forwards;
+transform:rotate(var(--angle)) translateX(155px) rotate(calc(var(--angle) * -1));
+}
+
+.orbit-gift img{
+width:75px;
+height:75px;
+object-fit:contain;
+background:#fff0f4;
+padding:7px;
+border-radius:50%;
+margin:0;
+box-shadow:0 0 22px #ff91bd;
+animation:giftGlow 2s infinite alternate
+}
+
+@keyframes giftAppear{
+from{opacity:0;scale:0}
+to{opacity:1;scale:1}
+}
+
+@keyframes giftGlow{
+from{box-shadow:0 0 10px #ff91bd}
+to{box-shadow:0 0 28px #ff91bd}
+}
+
+.gift-center{
+position:absolute;
+font-size:85px;
+z-index:2;
+cursor:pointer;
+filter:drop-shadow(0 0 20px #ff83b5);
+transition:.5s
+}
+
+.gift-center.opened{
+transform:scale(1.25) rotate(15deg);
+}
+
+.gift-caption{
+color:#ffd5e5;
+font-size:17px;
+min-height:35px;
+}
+
+.envelope{
+width:220px;
+height:145px;
+background:#e99ab9;
+border-radius:8px;
+position:relative;
+margin:30px;
+cursor:pointer;
+box-shadow:0 0 30px #ff9ec9
+}
+
+.envelope:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-top:85px solid #ffd0e0
+}
+
+.envelope:after{
+content:"❤️";
+position:absolute;
+top:65px;
+left:95px;
+font-size:30px
+}
+
+#letter{
+display:none;
+background:#fff0e7;
+color:#77354e;
+padding:25px;
+border-radius:15px;
+max-width:680px;
+width:95%;
+text-align:left;
+line-height:1.9;
+font-size:17px;
+max-height:65vh;
+overflow-y:auto;
+box-shadow:0 0 35px #ff8bb6
+}
+
+#letter h2{
+color:#b62e67;
+text-align:center
+}
+
+#letter p{
+font-size:16px;
+line-height:1.9
+}
+
+#letter .signature{
+text-align:right;
+font-weight:bold;
+color:#c02c70
+}
+
 #personalityImage{transition:opacity .5s,transform .5s}
 
+/* BIG BEATING HEART */
+
 .heart{
-font-size:170px;
+font-size:230px;
+line-height:1;
 color:#ff477f;
 cursor:pointer;
-animation:heartbeat .85s infinite;
-filter:drop-shadow(0 0 30px #ff477f);
-text-shadow:0 0 35px #ff477f;
+animation:heartbeat .75s infinite;
+filter:drop-shadow(0 0 35px #ff477f);
+text-shadow:0 0 40px #ff477f;
 }
 
 @keyframes heartbeat{
 0%,100%{transform:scale(1)}
 10%{transform:scale(1.25)}
 20%{transform:scale(1)}
-30%{transform:scale(1.3)}
+30%{transform:scale(1.35)}
 45%{transform:scale(1)}
-60%{transform:scale(1.12)}
+60%{transform:scale(1.15)}
 }
 
 #finalMessage{display:none}
+
 @media(max-width:600px){
 p{font-size:17px}
 img{max-width:95%}
 #letter{padding:18px}
-.heart{font-size:160px}
+.heart{font-size:200px}
+.orbit-ring{width:285px;height:285px}
+.orbit-gift{
+transform:rotate(var(--angle)) translateX(135px) rotate(calc(var(--angle) * -1))
+}
+.gift-stage{height:350px}
 }
 </style>
 </head>
 
 <body>
+
 <div id="background"></div>
 <div id="sparkles"></div>
 <div id="tulipRain"></div>
@@ -131,10 +371,16 @@ img{max-width:95%}
 
 <section class="screen" id="giftReveal">
 <h1>Your Birthday Gifts! 💝</h1>
+<p id="giftInstruction">Let's unwrap your first gift!</p>
+
+<div class="gift-stage">
+<div class="orbit-ring" id="orbitRing"></div>
+<div class="gift-center" id="giftCenter" onclick="revealGift()">🎁</div>
+</div>
+
 <h2 id="giftName"></h2>
-<img id="giftImage" src="Rare beauty.png" alt="Birthday Gift">
-<p id="giftText"></p>
-<button onclick="nextGift()" id="giftNext">NEXT GIFT 🎀</button>
+<p class="gift-caption" id="giftText">Tap the gift box to open it!</p>
+<button onclick="nextGift()" id="giftNext">OPEN MY FIRST GIFT 🎀</button>
 </section>
 
 <section class="screen" id="letterScreen">
@@ -183,6 +429,7 @@ It has been more than 5 months since i have known you..you are a really good fre
 </section>
 
 <script>
+
 const music=document.getElementById("music");
 
 function playMusic(){
@@ -217,6 +464,8 @@ setTimeout(()=>flower.remove(),7000);
 }
 }
 
+/* GIFT ORBIT SYSTEM */
+
 const gifts=[
 {name:"RARE BEAUTY 💄",image:"Rare beauty.png",text:"A little beauty for my beautiful girl!"},
 {name:"DYSON ✨",image:"Dyson.png",text:"Because you deserve all the luxury!"},
@@ -227,36 +476,80 @@ const gifts=[
 ];
 
 let giftIndex=0;
+let giftOpened=false;
 
 function openGifts(){
 giftIndex=0;
+giftOpened=false;
+
+document.getElementById("orbitRing").innerHTML="";
+document.getElementById("orbitRing").style.display="none";
+
+document.getElementById("giftCenter").textContent="🎁";
+document.getElementById("giftCenter").classList.remove("opened");
+
+document.getElementById("giftName").textContent="";
+document.getElementById("giftText").textContent="Tap the gift box to open it!";
+document.getElementById("giftInstruction").textContent="Let's unwrap your first gift!";
+
+document.getElementById("giftNext").textContent="OPEN MY FIRST GIFT 🎀";
+
 showScreen("giftReveal");
-displayGift();
 }
 
-function displayGift(){
+function revealGift(){
+if(giftOpened)return;
+giftOpened=true;
+
+document.getElementById("giftCenter").textContent="🎉";
+document.getElementById("giftCenter").classList.add("opened");
+
+const ring=document.getElementById("orbitRing");
+ring.style.display="block";
+
 const gift=gifts[giftIndex];
-const image=document.getElementById("giftImage");
 
-image.style.opacity=0;
-image.style.transform="scale(.8)";
+const item=document.createElement("div");
+item.className="orbit-gift";
 
-setTimeout(()=>{
-document.getElementById("giftName").textContent=gift.name;
+const angle=(giftIndex*60);
+item.style.setProperty("--angle",angle+"deg");
+
+const image=document.createElement("img");
 image.src=gift.image;
+image.alt=gift.name;
+
+item.appendChild(image);
+ring.appendChild(item);
+
+document.getElementById("giftName").textContent=gift.name;
 document.getElementById("giftText").textContent=gift.text;
-image.style.opacity=1;
-image.style.transform="scale(1)";
-},300);
+
+document.getElementById("giftInstruction").textContent=
+giftIndex===0?"Your first surprise! 💝":"Another surprise added to your gift orbit! 💝";
 
 document.getElementById("giftNext").textContent=
-giftIndex===gifts.length-1?"READ MY LETTER 💌":"NEXT GIFT 🎀";
+giftIndex===gifts.length-1?"READ MY LETTER 💌":"OPEN NEXT GIFT 🎁";
 }
 
 function nextGift(){
+if(!giftOpened){
+revealGift();
+return;
+}
+
 if(giftIndex<gifts.length-1){
 giftIndex++;
-displayGift();
+giftOpened=false;
+
+document.getElementById("giftCenter").textContent="🎁";
+document.getElementById("giftCenter").classList.remove("opened");
+
+document.getElementById("giftName").textContent="";
+document.getElementById("giftText").textContent="Tap the gift box to unwrap your next surprise!";
+document.getElementById("giftInstruction").textContent="What's inside the next box? 🎀";
+
+document.getElementById("giftNext").textContent="OPEN NEXT GIFT 🎁";
 }else{
 showScreen("letterScreen");
 }
@@ -269,6 +562,8 @@ document.getElementById("letter").style.display="block";
 document.getElementById("letterNext").style.display="inline-block";
 }
 
+/* PERSONALITY COMPLIMENTS */
+
 const compliments=[
 {text:"Your voice is like a beautiful melody played on a piano.",image:"Piano.png"},
 {text:"Your calmness is like a candle glowing in a quiet room.",image:"Candle.png"},
@@ -276,7 +571,7 @@ const compliments=[
 {text:"Your personality is like a cup of hot chocolate on a cold winter evening.",image:"Chocolate.png"},
 {text:"Your eyes are as deep as the Pacific Ocean and just as mesmerizing.",image:"Pacific ocean.png"},
 {text:"You're like a shooting star; even a glimpse feels special.",image:"Shootingstar.png"},
-{text:"You're like the Northern Lights, rare, magical, and impossible to ignore.",image:"Northern lights.png"},
+{text:"You're like the Northern Lights, rare, magical, and impossible to ignore.",image:"Northen lights.png"},
 {text:"You're prettier than a garden full of roses under the morning sun.",image:"Roses.png"}
 ];
 
@@ -311,6 +606,8 @@ showScreen("ending");
 }
 }
 
+/* FINAL SURPRISE */
+
 function finalSurprise(){
 document.querySelector(".heart").style.display="none";
 document.querySelector("#ending > p").style.display="none";
@@ -318,11 +615,13 @@ document.getElementById("finalMessage").style.display="block";
 startTulipRain();
 }
 
+/* PRELOAD ALL PHOTOS */
+
 const allImages=[
 "Cake.png","Besties.png","Tulips.png","Kiss.png","Lamborghini.png","Haweli.png",
 "Rare beauty.png","Dyson.png","I phone.png","Teady.png","Sipper.png","Ysl.png",
 "Piano.png","Candle.png","Blanket.png","Chocolate.png","Pacific ocean.png",
-"Shootingstar.png","Northern lights.png","Roses.png","Hug.png"
+"Shootingstar.png","Northen lights.png","Roses.png","Hug.png"
 ];
 
 allImages.forEach(file=>{
@@ -331,6 +630,7 @@ img.src=encodeURI(file);
 });
 
 displayPersonality();
+
 </script>
 </body>
 </html>
