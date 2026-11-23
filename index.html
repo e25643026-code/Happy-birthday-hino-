@@ -1,1 +1,293 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Hino ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Georgia,serif;background:#170b16;color:white;text-align:center;overflow-x:hidden}
+#background{position:fixed;inset:0;background:linear-gradient(#140512c9,#140512e0),url("Besties.png") center/cover;z-index:-2}
+#sparkles{position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(#ffffff66 1px,transparent 1px);background-size:35px 35px;opacity:.4}
+.screen{display:none;min-height:100vh;padding:35px 18px;flex-direction:column;align-items:center;justify-content:center;animation:appear .9s ease}
+.screen.active{display:flex}
+@keyframes appear{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+h1{color:#ffd5e5;font-size:clamp(32px,7vw,55px);margin:15px;text-shadow:0 0 20px #ff70ad}
+h2{color:#ffc5df;font-size:clamp(25px,5vw,36px);margin:15px}
+p{font-size:19px;line-height:1.8;max-width:650px;margin:12px auto}
+img{max-width:85%;max-height:48vh;object-fit:contain;border-radius:18px;margin:20px;box-shadow:0 0 30px #ff91bd55}
+button{background:linear-gradient(135deg,#ff75ad,#c83279);color:white;border:1px solid #ffc3dc;border-radius:35px;padding:15px 30px;margin:15px;font-size:17px;font-family:Georgia,serif;cursor:pointer;box-shadow:0 5px 25px #ff4f9955;transition:.3s}
+button:hover{transform:scale(1.07)}
+.small{color:#ffcee2;font-style:italic}
+#tulipRain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.falling{position:absolute;top:-50px;animation:fall linear forwards;font-size:27px}
+@keyframes fall{to{transform:translateY(110vh) rotate(500deg);opacity:0}}
+.giftbox{font-size:110px;cursor:pointer;animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.envelope{width:220px;height:145px;background:#e99ab9;border-radius:8px;position:relative;margin:30px;cursor:pointer;box-shadow:0 0 30px #ff9ec9}
+.envelope:before{content:"";position:absolute;top:0;left:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:85px solid #ffd0e0}
+.envelope:after{content:"❤️";position:absolute;top:65px;left:95px;font-size:30px}
+#letter{display:none;background:#fff0e7;color:#77354e;padding:25px;border-radius:15px;max-width:680px;width:95%;text-align:left;line-height:1.9;font-size:17px;max-height:65vh;overflow-y:auto;box-shadow:0 0 35px #ff8bb6}
+#letter h2{color:#b62e67;text-align:center}
+#letter p{font-size:16px;line-height:1.9}
+#letter .signature{text-align:right;font-weight:bold;color:#c02c70}
+#personalityImage{transition:opacity .5s,transform .5s}
+.heart{font-size:110px;color:#ff477f;cursor:pointer;animation:heartbeat 1s infinite;filter:drop-shadow(0 0 20px #ff477f)}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+#finalMessage{display:none}
+@media(max-width:600px){p{font-size:17px}img{max-width:95%}#letter{padding:18px}}
+</style>
+</head>
+
+<body>
+<div id="background"></div>
+<div id="sparkles"></div>
+<div id="tulipRain"></div>
+<audio id="music" loop></audio>
+
+<section class="screen active" id="welcome">
+<h1>Happy Birthday HINO! 🎂</h1>
+<p>Today is all about you, my favourite human ❤️</p>
+<img src="Cake.png" alt="Birthday Cake">
+<h2>Are you ready for your surprise?</h2>
+<button onclick="begin()">LET THE CELEBRATIONS BEGIN ✨</button>
+</section>
+
+<section class="screen" id="tulips">
+<h1>A little shower of love 🌷</h1>
+<p>Because someone as special as you deserves endless happiness!</p>
+<img src="Tulips.png" alt="Tulips">
+<button onclick="showScreen('kiss')">NEXT ❤️</button>
+</section>
+
+<section class="screen" id="kiss">
+<h1>A little kiss for my Hino 💋</h1>
+<img src="Kiss.png" alt="Kiss">
+<p>Sending you the biggest birthday kisses!</p>
+<button onclick="showScreen('car')">NEXT ❤️</button>
+</section>
+
+<section class="screen" id="car">
+<h1>Something luxurious for you! 🏎️</h1>
+<img src="Lamborghini.png" alt="Lamborghini">
+<p>Because my girl deserves the finest things!</p>
+<button onclick="showScreen('haweli')">NEXT ❤️</button>
+</section>
+
+<section class="screen" id="haweli">
+<h1>Your dream kingdom! 🏰</h1>
+<img src="Haweli.png" alt="Haweli">
+<p>A beautiful place for a beautiful soul.</p>
+<button onclick="showScreen('gift')">OPEN YOUR GIFTS 🎁</button>
+</section>
+
+<section class="screen" id="gift">
+<h1>Special gifts for my special girl! 🎁</h1>
+<p>I've got a little something for you...</p>
+<div class="giftbox" onclick="openGifts()">🎁</div>
+<p class="small">Tap the gift box to unwrap your surprises!</p>
+<button onclick="openGifts()">UNWRAP YOUR GIFTS ✨</button>
+</section>
+
+<section class="screen" id="giftReveal">
+<h1>Your Birthday Gifts! 💝</h1>
+<h2 id="giftName"></h2>
+<img id="giftImage" src="Rare beauty.png" alt="Birthday Gift">
+<p id="giftText"></p>
+<button onclick="nextGift()" id="giftNext">NEXT GIFT 🎀</button>
+</section>
+
+<section class="screen" id="letterScreen">
+<h1>A little letter for you 💌</h1>
+<p>Something straight from my heart...</p>
+<div class="envelope" onclick="openLetter()"></div>
+<button onclick="openLetter()">OPEN YOUR LETTER 💗</button>
+
+<div id="letter">
+<h2>Happiest birthday HINO ❤️</h2>
+<p>
+Happy birthdayy to my bestiee hinodiiii..i love you so much..i hope your days get filled with laughter and joy...may god bless you with all the success and prosperity in your life..i hope that your cute smile always stays on your beautiful face
+</p>
+<p>
+It has been more than 5 months since i have known you..you are a really good freind the best gf the best daughter and the best sister...never get discouraged by people who say bad about you..hino is the best girl i have ever seen...the pranks that we used to do in live will always have a special space in my heart...life seems more beautiful with a kind girl like you...who thinks of others rather than thinking about herself..i hope you get very good friends in your life who know the value of my hino..who will cherish her and make her happy...i Can't talk to you but i miss you so much...you always make me smile through my heart whenever i talk to you..a smile appears without any reason...that's hinos power of making everyone smile though she is growing through much inside...i hope your health remains good...physically and meantally...and whenever you need help i am there...don't ever feel that you are alone...whenever you want to talk abt smth i am there...i am there to support you for rest of your life...may our friendship remains the same for years..love you hino🤧💋❤️
+</p>
+<p class="signature">~ Tari eishudi❤️</p>
+</div>
+<button id="letterNext" style="display:none" onclick="showScreen('personality')">ONE LAST SURPRISE 🌷</button>
+</section>
+
+<section class="screen" id="personality">
+<h1>A few things about you, Hino ❤️</h1>
+<p id="personalityText"></p>
+<img id="personalityImage" src="Piano.png" alt="Personality comparison">
+<p class="small" id="personalityCount">1 / 8</p>
+<button onclick="nextPersonality()" id="personalityNext">NEXT ✨</button>
+</section>
+
+<section class="screen" id="ending">
+<h1>One last thing... ❤️</h1>
+<p>Tap the heart to receive your biggest hug!</p>
+<div class="heart" onclick="finalSurprise()">♥</div>
+<div id="finalMessage">
+<img src="Hug.png" alt="A big hug">
+<h1>HAPPY BIRTHDAY MY BESTIE!! 🎂</h1>
+<h2>I LOVE YOU SO MUCH HINO! ❤️</h2>
+<p>Sending you the biggest hug and endless love! 🤗💋</p>
+<p>Forever your eishudi ❤️</p>
+</div>
+</section>
+
+<script>
+const music=document.getElementById("music");
+
+function playMusic(file){
+const newSource=encodeURI(file);
+if(music.getAttribute("src")!==newSource){
+music.src=newSource;
+music.volume=.65;
+music.play().catch(()=>{});
+}
+}
+
+function showScreen(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function begin(){
+playMusic("Dilruba silnasheen.m4a");
+showScreen("tulips");
+startTulipRain();
+}
+
+function startTulipRain(){
+const container=document.getElementById("tulipRain");
+for(let i=0;i<35;i++){
+setTimeout(()=>{
+const flower=document.createElement("div");
+flower.className="falling";
+flower.textContent="🌷";
+flower.style.left=Math.random()*100+"%";
+flower.style.animationDuration=(3+Math.random()*4)+"s";
+container.appendChild(flower);
+setTimeout(()=>flower.remove(),7000);
+},i*130);
+}
+}
+
+const gifts=[
+{name:"RARE BEAUTY 💄",image:"Rare beauty.png",text:"A little beauty for my beautiful girl!"},
+{name:"DYSON ✨",image:"Dyson.png",text:"Because you deserve all the luxury!"},
+{name:"IPHONE 📱",image:"I phone.png",text:"A new phone for my favourite person!"},
+{name:"TEDDY 🧸",image:"Teady.png",text:"A teddy to keep you company whenever I'm not around!"},
+{name:"SIPPER 🥤",image:"Sipper.png",text:"A little something to keep you hydrated!"},
+{name:"YSL 💝",image:"Ysl.png",text:"Something special for someone special!"}
+];
+
+let giftIndex=0;
+
+function openGifts(){
+giftIndex=0;
+showScreen("giftReveal");
+displayGift();
+}
+
+function displayGift(){
+const gift=gifts[giftIndex];
+const image=document.getElementById("giftImage");
+image.style.opacity=0;
+image.style.transform="scale(.8)";
+setTimeout(()=>{
+document.getElementById("giftName").textContent=gift.name;
+image.src=gift.image;
+document.getElementById("giftText").textContent=gift.text;
+image.style.opacity=1;
+image.style.transform="scale(1)";
+},300);
+document.getElementById("giftNext").textContent=
+giftIndex===gifts.length-1?"READ MY LETTER 💌":"NEXT GIFT 🎀";
+}
+
+function nextGift(){
+if(giftIndex<gifts.length-1){
+giftIndex++;
+displayGift();
+}else{
+showScreen("letterScreen");
+playMusic("blue yung kai.mp3");
+}
+}
+
+function openLetter(){
+document.querySelector(".envelope").style.display="none";
+document.querySelector("#letterScreen > button").style.display="none";
+document.getElementById("letter").style.display="block";
+document.getElementById("letterNext").style.display="inline-block";
+}
+
+const compliments=[
+{text:"Your voice is like a beautiful melody played on a piano.",image:"Piano.png"},
+{text:"Your calmness is like a candle glowing in a quiet room.",image:"Candle.png"},
+{text:"Your kindness is like a warm blanket on a rainy day.",image:"Blanket.png"},
+{text:"Your personality is like a cup of hot chocolate on a cold winter evening.",image:"Chocolate.png"},
+{text:"Your eyes are as deep as the Pacific Ocean and just as mesmerizing.",image:"Pacific ocean.png"},
+{text:"You're like a shooting star; even a glimpse feels special.",image:"Shootingstar.png"},
+{text:"You're like the Northern Lights, rare, magical, and impossible to ignore.",image:"Northern lights.png"},
+{text:"You're prettier than a garden full of roses under the morning sun.",image:"Roses.png"}
+];
+
+let personalityIndex=0;
+
+function displayPersonality(){
+const item=compliments[personalityIndex];
+const image=document.getElementById("personalityImage");
+image.style.opacity=0;
+image.style.transform="rotate(-5deg) scale(.85)";
+document.getElementById("personalityText").textContent=item.text;
+document.getElementById("personalityCount").textContent=(personalityIndex+1)+" / "+compliments.length;
+setTimeout(()=>{
+image.src=item.image;
+image.style.opacity=1;
+image.style.transform="rotate(0) scale(1)";
+},350);
+document.getElementById("personalityNext").textContent=
+personalityIndex===compliments.length-1?"ONE LAST THING ❤️":"NEXT ✨";
+}
+
+function nextPersonality(){
+if(personalityIndex<compliments.length-1){
+personalityIndex++;
+displayPersonality();
+}else{
+showScreen("ending");
+playMusic("Alfaaz.m4a");
+}
+}
+
+function finalSurprise(){
+document.querySelector(".heart").style.display="none";
+document.querySelector("#ending > p").style.display="none";
+document.getElementById("finalMessage").style.display="block";
+startTulipRain();
+}
+
+const allImages=[
+"Cake.png","Besties.png","Tulips.png","Kiss.png","Lamborghini.png","Haweli.png",
+"Rare beauty.png","Dyson.png","I phone.png","Teady.png","Sipper.png","Ysl.png",
+"Piano.png","Candle.png","Blanket.png","Chocolate.png","Pacific ocean.png",
+"Shootingstar.png","Northern lights.png","Roses.png","Hug.png"
+];
+
+allImages.forEach(file=>{
+const img=new Image();
+img.src=encodeURI(file);
+});
+
+displayPersonality();
+</script>
+</body>
+</html>
+
